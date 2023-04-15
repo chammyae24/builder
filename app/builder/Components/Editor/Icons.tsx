@@ -1,14 +1,17 @@
 import {
-  BiRightArrow,
   BiBorderRadius,
   BiBorderBottom,
   BiBorderLeft,
   BiBorderRight,
   BiBorderTop
 } from "react-icons/bi";
+import { BsFillCaretRightFill } from "react-icons/bs";
 import { AiOutlinePlus, AiOutlinePlusSquare } from "react-icons/ai";
 
-export const Caret = () => <BiRightArrow className="text-blue-300" />;
+export const Caret = ({ deg }: { deg: number }) => {
+  // deg could be rotate-0 or rotate-90
+  return <BsFillCaretRightFill className={`rotate-${deg} text-blue-300`} />;
+};
 
 export const Plus = () => <AiOutlinePlusSquare className="text-blue-300" />;
 

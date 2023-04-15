@@ -1,153 +1,108 @@
 "use client";
-
+import { useState } from "react";
 import { BiGridHorizontal, BiGridVertical } from "react-icons/bi";
 import { CgMenuGridR } from "react-icons/cg";
 import { RiGradienterFill } from "react-icons/ri";
 import { MdImage, MdGradient } from "react-icons/md";
 import { ImCheckboxUnchecked } from "react-icons/im";
-import { AiOutlinePlus } from "react-icons/ai";
 import EditComponentWraper from "./EditComponentWraper";
 import EditorHeader from "./EditorHeader";
 import { Exit, Plus } from "./Icons";
+import {
+  ColorInput,
+  FileInput,
+  IconBox,
+  Input,
+  Label,
+  ToggleMore
+} from "./EditorComponents";
 
 const Backgrounds = () => {
+  const [clicked, setClicked] = useState<boolean>(false);
   return (
     <div>
-      <EditorHeader title="Backgrounds" />
-      <EditComponentWraper>
-        <div className="col-span-4 flex items-center justify-center gap-2 bg-builder-darker p-2">
-          <Plus />
-          <h1 className="text-xs">Background image</h1>
-        </div>
-        <span className="col-span-1 break-words text-xs text-blue-300">
-          Type
-        </span>
-        <div className="col-span-3 flex flex-wrap">
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <MdImage />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <MdGradient />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <RiGradienterFill />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <ImCheckboxUnchecked />
-          </button>
-        </div>
-        <span className="col-span-1 break-words text-xs text-blue-300">
-          Image
-        </span>
-        <div className="relative col-span-3 w-full cursor-pointer border-2 border-dashed border-builder-darker bg-builder-box px-1 text-xs">
-          <AiOutlinePlus className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-300" />
-          <input type="file" className="w-full opacity-0" />
-        </div>
+      <EditorHeader
+        title="Backgrounds"
+        clicked={clicked}
+        setClicked={setClicked}
+      />
+      {clicked && (
+        <EditComponentWraper>
+          <ToggleMore text="Background image" />
 
-        <span className="col-span-1 break-words text-xs text-blue-300">
-          Size
-        </span>
-        <div className="col-span-3 flex flex-wrap">
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Custom
-          </button>
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Cover
-          </button>
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Contain
-          </button>
-        </div>
-
-        <div className="col-span-2 flex items-center justify-between gap-1">
-          <span className="text-xs text-blue-300">Width</span>
-          <input
-            type="text"
-            placeholder="--"
-            className="w-14 border-2 border-builder-darker bg-builder-box px-1 text-xs"
-          />
-        </div>
-        <div className="col-span-2 flex items-center justify-between gap-1">
-          <span className="text-xs text-blue-300">Height</span>
-          <input
-            type="text"
-            placeholder="--"
-            className="w-14 border-2 border-builder-darker bg-builder-box px-1 text-xs"
-          />
-        </div>
-
-        <span className="col-span-1 text-xs text-blue-300">Position</span>
-        <div className="col-span-3 flex">
-          <div className="grid">
-            <input
-              type="text"
-              placeholder="--"
-              className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-            />
-            <span className="text-xs text-blue-300">Left</span>
+          <Label label="Type" span="1" />
+          <div className="col-span-3 flex flex-wrap">
+            <IconBox icon={<MdImage />} width="1/4" />
+            <IconBox icon={<MdGradient />} width="1/4" />
+            <IconBox icon={<RiGradienterFill />} width="1/4" />
+            <IconBox icon={<ImCheckboxUnchecked />} width="1/4" />
           </div>
-          <div className="grid">
-            <input
-              type="text"
-              placeholder="--"
-              className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
+
+          <FileInput />
+
+          <Label label="Size" span="1" />
+          <div className="col-span-3 flex flex-wrap">
+            <IconBox
+              icon={<span className="text-[10px]">Custom</span>}
+              width="1/3"
             />
-            <span className="text-xs text-blue-300">Top</span>
+            <IconBox
+              icon={<span className="text-[10px]">Cover</span>}
+              width="1/3"
+            />
+            <IconBox
+              icon={<span className="text-[10px]">Contain</span>}
+              width="1/3"
+            />
           </div>
-        </div>
 
-        <span className="col-span-1 break-words text-xs text-blue-300">
-          Tile
-        </span>
-        <div className="col-span-3 flex flex-wrap">
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <CgMenuGridR />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <BiGridHorizontal />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <BiGridVertical />
-          </button>
-          <button className="flex w-1/4 justify-center border border-builder-darker bg-builder-box p-2">
-            <Exit />
-          </button>
-        </div>
+          <Input label="Width" placeholder="--" span="1:1" />
+          <Input label="Height" placeholder="--" span="1:1" />
 
-        <div className="col-span-4 flex flex-wrap">
-          <button className="flex w-1/2 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Fixed
-          </button>
-          <button className="flex w-1/2 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Not Fixed
-          </button>
-        </div>
+          <Label label="Position" span="1" />
+          <div className="col-span-3 grid grid-cols-4">
+            <Input label="Left" placeholder="--" span="2:2" />
+            <Input label="Top" placeholder="--" span="2:2" />
+          </div>
 
-        <span className="col-span-1 text-xs text-blue-300">Color</span>
-        <div className="relative col-span-3">
-          <input
-            type="color"
-            className="absolute left-0 top-[2px] h-[22px] w-[22px] text-xs outline-none"
-          />
-          <input
-            type="text"
-            className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-          />
-        </div>
+          <Label label="Tile" span="1" />
+          <div className="col-span-3 flex flex-wrap">
+            <IconBox icon={<CgMenuGridR />} width="1/4" />
+            <IconBox icon={<BiGridHorizontal />} width="1/4" />
+            <IconBox icon={<BiGridVertical />} width="1/4" />
+            <IconBox icon={<Exit />} width="1/4" />
+          </div>
 
-        <span className="col-span-1 text-xs text-blue-300">Clipping</span>
-        <div className="col-span-3 flex flex-wrap">
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Padding
-          </button>
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Content
-          </button>
-          <button className="flex w-1/3 justify-center border border-builder-darker bg-builder-box p-2 text-[10px]">
-            Text
-          </button>
-        </div>
-      </EditComponentWraper>
+          <div className="col-span-4 flex flex-wrap">
+            <IconBox
+              icon={<span className="text-[10px]">Fixed</span>}
+              width="1/2"
+            />
+            <IconBox
+              icon={<span className="text-[10px]">Not Fixed</span>}
+              width="1/2"
+            />
+          </div>
+
+          <ColorInput />
+
+          <Label label="Clipping" span="1" />
+          <div className="col-span-3 flex flex-wrap">
+            <IconBox
+              icon={<span className="text-[10px]">Padding</span>}
+              width="1/3"
+            />
+            <IconBox
+              icon={<span className="text-[10px]">Content</span>}
+              width="1/3"
+            />
+            <IconBox
+              icon={<span className="text-[10px]">Text</span>}
+              width="1/3"
+            />
+          </div>
+        </EditComponentWraper>
+      )}
     </div>
   );
 };

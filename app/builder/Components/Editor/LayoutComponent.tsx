@@ -8,38 +8,32 @@ import {
 import { AiOutlineEyeInvisible as None } from "react-icons/ai";
 import { IoText as Inline } from "react-icons/io5";
 import EditorHeader from "./EditorHeader";
+import EditComponentWraper from "./EditComponentWraper";
+import { IconBox } from "./EditorComponents";
+import { useState } from "react";
 
 const LayoutComponent = () => {
+  const [clicked, setClicked] = useState<boolean>(false);
   return (
     <div>
-      <EditorHeader title="Layout" />
-      <div className="border-b border-builder-darker p-2">
-        <div className="mb-2">
-          <div className="w-fit rounded px-1 text-xs text-blue-300">
-            Display
+      <EditorHeader title="Layout" clicked={clicked} setClicked={setClicked} />
+      {clicked && (
+        <EditComponentWraper>
+          <div className="col-span-4">
+            <div className="w-fit rounded px-1 text-xs text-blue-300">
+              Display
+            </div>
           </div>
-        </div>
-        <div className="flex flex-wrap">
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <Block />
+          <div className="col-span-4 flex flex-wrap">
+            <IconBox icon={<Block />} />
+            <IconBox icon={<Flex />} />
+            <IconBox icon={<Grid />} />
+            <IconBox icon={<InlineBlock />} />
+            <IconBox icon={<Inline />} />
+            <IconBox icon={<None />} />
           </div>
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <Flex />
-          </div>
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <Grid />
-          </div>
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <InlineBlock />
-          </div>
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <Inline />
-          </div>
-          <div className="border border-builder-darker bg-builder-box p-2">
-            <None />
-          </div>
-        </div>
-      </div>
+        </EditComponentWraper>
+      )}
     </div>
   );
 };
