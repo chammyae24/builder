@@ -4,8 +4,8 @@ import {
   AiOutlinePlusSquare,
   AiOutlineCloseSquare
 } from "react-icons/ai";
-import { TestData } from "../Navigator";
-import { useState } from "react";
+import { TestData } from "../../testData";
+import { ReactElement, useState } from "react";
 
 type Props = {
   testData: TestData;
@@ -14,10 +14,31 @@ type Props = {
 
 const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
   const [clicked, setClicked] = useState(false);
+
+  let disabled =
+    testData.children === null || typeof testData.children === "string";
+
+  let content: ReactElement | ReactElement[] = <></>;
+  if (clicked && testData.children && typeof testData.children !== "string") {
+    if (Array.isArray(testData.children)) {
+      content = testData.children.map(child => (
+        <SelectedComponent
+          key={child.id}
+          testNum={testNum + 1}
+          testData={child}
+        />
+      ));
+    } else {
+      content = (
+        <SelectedComponent testNum={testNum + 1} testData={testData.children} />
+      );
+    }
+  }
+
   return (
     <>
       <div
-        className="mb-1 flex items-center gap-2 border border-white bg-builder-box p-2"
+        className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2"
         style={{
           marginLeft: testNum * 6
         }}
@@ -25,9 +46,9 @@ const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
         <button
           className=""
           onClick={() => setClicked(b => !b)}
-          disabled={testData.children ? false : true}
+          disabled={disabled}
         >
-          {testData.children ? (
+          {!disabled ? (
             clicked ? (
               <AiOutlineMinusSquare />
             ) : (
@@ -39,9 +60,7 @@ const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
         </button>
         <span className="text-xs">{testData.type}</span>
       </div>
-      {clicked && testData.children && (
-        <SelectedComponent testNum={testNum + 1} testData={testData.children} />
-      )}
+      {content}
     </>
   );
 };
