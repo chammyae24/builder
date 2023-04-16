@@ -16,7 +16,11 @@ const elementsRender = (data: ElementData | number | string): ReactElement => {
     return createElement(Fragment, null, data);
   }
 
-  if (data.children !== null && typeof data.children !== "string") {
+  if (
+    data.children !== null &&
+    typeof data.children !== "string" &&
+    typeof data.children !== "number"
+  ) {
     if (Array.isArray(data.children)) {
       if (data.type === null) {
         return createElement(

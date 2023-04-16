@@ -18,15 +18,13 @@ const SelectedComponent = ({
 }: Props): ReactElement => {
   const [clicked, setClicked] = useState<boolean>(false);
 
-  let disabled;
-  if (typeof element !== "number" || typeof element === "string") {
-    disabled =
-      element.children === null ||
-      typeof element.children === "string" ||
-      typeof element.children === "string" ||
-      (Array.isArray(element.children) &&
-        element.children.every(a => a.type === null));
-  }
+  let disabled =
+    element.children === null ||
+    typeof element.children === "string" ||
+    typeof element.children === "number" ||
+    (Array.isArray(element.children) &&
+      element.children.every(a => a.type === null)) ||
+    (!Array.isArray(element.children) && element.children.type === null);
 
   let content: ReactElement | ReactElement[] = <></>;
   if (
