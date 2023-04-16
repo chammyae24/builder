@@ -1,11 +1,11 @@
-export interface TestData {
+export interface ElementData {
   id: string;
-  type: string;
-  children: TestData | TestData[] | string | null;
+  type: string | null;
+  children: ElementData | ElementData[] | string | number | null;
 }
 
-export const testData: TestData = {
-  id: "1",
+export const testData: ElementData = {
+  id: "10",
   type: "div",
   children: {
     id: "2",
@@ -13,14 +13,14 @@ export const testData: TestData = {
     children: [
       {
         id: "3",
-        type: "h1",
+        type: "div",
         children: {
           id: "4",
-          type: "span",
+          type: "div",
           children: {
             id: "5",
-            type: "span",
-            children: "Hello. This is from id - 5. (Span)"
+            type: "div",
+            children: "Hello. This is from id - 5."
           }
         }
       },
@@ -33,7 +33,7 @@ export const testData: TestData = {
   }
 };
 
-export const testData2: TestData = {
+export const testData2: ElementData = {
   id: "1",
   type: "div",
   children: [
@@ -49,8 +49,18 @@ export const testData2: TestData = {
     {
       id: "3",
       type: "div",
-      // children: "Hello. This is from id - 3. (Div)",
-      children: null
+      children: [
+        {
+          id: "5",
+          type: null,
+          children: "Hello. This is from id - 5."
+        },
+        {
+          id: "6",
+          type: null,
+          children: 6
+        }
+      ]
     }
   ]
 };

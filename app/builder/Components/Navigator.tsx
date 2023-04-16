@@ -1,11 +1,11 @@
-import { testData, testData2 } from "../testData";
+import { testData, testData2 } from "../data-type";
 import SelectedComponent from "./Navigator/SelectedComponent";
 
 const Navigator = () => {
   return (
     <div className="col-span-1 border-r border-gray-500">
-      <SelectedComponent testData={testData} />
-      <SelectedComponent testData={testData2} />
+      <SelectedComponent element={testData} />
+      <SelectedComponent element={testData2} />
     </div>
   );
 };

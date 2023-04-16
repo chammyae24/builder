@@ -4,33 +4,51 @@ import {
   AiOutlinePlusSquare,
   AiOutlineCloseSquare
 } from "react-icons/ai";
-import { TestData } from "../../testData";
+import { ElementData } from "../../data-type";
 import { ReactElement, useState } from "react";
 
 type Props = {
-  testData: TestData;
-  testNum?: number;
+  element: ElementData;
+  iteratorIndex?: number;
 };
 
-const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
-  const [clicked, setClicked] = useState(false);
+const SelectedComponent = ({
+  element,
+  iteratorIndex = 0
+}: Props): ReactElement => {
+  const [clicked, setClicked] = useState<boolean>(false);
 
-  let disabled =
-    testData.children === null || typeof testData.children === "string";
+  let disabled;
+  if (typeof element !== "number" || typeof element === "string") {
+    disabled =
+      element.children === null ||
+      typeof element.children === "string" ||
+      typeof element.children === "string" ||
+      (Array.isArray(element.children) &&
+        element.children.every(a => a.type === null));
+  }
 
   let content: ReactElement | ReactElement[] = <></>;
-  if (clicked && testData.children && typeof testData.children !== "string") {
-    if (Array.isArray(testData.children)) {
-      content = testData.children.map(child => (
+  if (
+    clicked &&
+    element.children &&
+    typeof element.children !== "string" &&
+    typeof element.children !== "number"
+  ) {
+    if (Array.isArray(element.children)) {
+      content = element.children.map(child => (
         <SelectedComponent
           key={child.id}
-          testNum={testNum + 1}
-          testData={child}
+          iteratorIndex={iteratorIndex + 1}
+          element={child}
         />
       ));
     } else {
       content = (
-        <SelectedComponent testNum={testNum + 1} testData={testData.children} />
+        <SelectedComponent
+          iteratorIndex={iteratorIndex + 1}
+          element={element.children}
+        />
       );
     }
   }
@@ -40,7 +58,7 @@ const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
       <div
         className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2"
         style={{
-          marginLeft: testNum * 6
+          marginLeft: iteratorIndex * 6
         }}
       >
         <button
@@ -58,7 +76,7 @@ const SelectedComponent = ({ testData, testNum = 0 }: Props) => {
             <AiOutlineCloseSquare className="text-gray-500" />
           )}
         </button>
-        <span className="text-xs">{testData.type}</span>
+        <span className="text-xs">{element.type}</span>
       </div>
       {content}
     </>
