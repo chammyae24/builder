@@ -6,14 +6,11 @@ import {
   testData3
 } from "../builder/data-type";
 import { jsxToString } from "../builder/Components/Preview/helpers";
-import { JSXElement } from "../builder/Components/Preview/helpers";
 
 const style = {
   padding: "4px",
   margin: "4px",
-  // color: "black",
-  // backgroundColor: "#fefefe",
-  outline: "1px dashed red"
+  outline: "1px dashed green"
 };
 
 export const elementsRender = (

@@ -4,15 +4,16 @@ import parserBabel from "prettier/parser-babel";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import * as codeTheme from "react-syntax-highlighter/dist/esm/styles/prism";
-import { ElementData, testData, testData2 } from "../../data-type";
 import { jsxString, jsxString2, jsxString3 } from "@/app/preview-page/helpers";
-import { jsxGenerator } from "./helpers";
+import { jsxToString } from "./helpers";
 
 // ! This code should not be used. You have to find better method.
-// const str =
+// const componentCodeString =
 //   "export default function Component() {\n\n return (" +
 //   jsxGenerator(testData).toString().replaceAll(",", "") +
 //   ")}";
+// ? That a better method?
+
 const componentCodeString =
   "export default function Component() {\n\n return (<>\n" +
   jsxString +
