@@ -1,6 +1,12 @@
 import { Fragment, createElement, ReactElement } from "react";
-import { ElementData, testData } from "../builder/data-type";
+import {
+  ElementData,
+  testData,
+  testData2,
+  testData3
+} from "../builder/data-type";
 import { jsxToString } from "../builder/Components/Preview/helpers";
+import { JSXElement } from "../builder/Components/Preview/helpers";
 
 const style = {
   padding: "4px",
@@ -32,7 +38,7 @@ export const elementsRender = (
       }
       return createElement(
         data.type,
-        { style, key: data.id, boo: true, hey: "hello", hi: [1, 2, 3] },
+        { style, key: data.id, disabled: true, hey: "hello", hi: [1, 2, 3] },
         data.children.map(child => elementsRender(child))
       );
     } else {
@@ -65,4 +71,6 @@ export const elementsRender = (
   }
 };
 
-export const str3 = jsxToString(elementsRender(testData));
+export const jsxString = jsxToString(elementsRender(testData));
+export const jsxString2 = jsxToString(elementsRender(testData2));
+export const jsxString3 = jsxToString(elementsRender(testData3));

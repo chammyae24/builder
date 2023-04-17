@@ -96,6 +96,20 @@ export const testData2: ElementData = {
   ]
 };
 
+export const testData3: ElementData = {
+  id: "101",
+  type: "div",
+  children: {
+    id: "11",
+    type: "span",
+    children: {
+      id: "12",
+      type: null,
+      children: 5
+    }
+  }
+};
+
 export const testComponent: ComponentData = {
   component: testData
 };

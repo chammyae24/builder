@@ -4,7 +4,7 @@ import Preview from "./Preview";
 
 const BuilderPlayground = () => {
   return (
-    <div className="grid grid-cols-5 bg-builder">
+    <div className="flex self-stretch bg-builder">
       <Navigator />
       <Preview />
       <Editor />

@@ -5,7 +5,7 @@ import CodeComponent from "./Preview/CodeComponent";
 const Preview = () => {
   const [tab, setTab] = useState(1);
   return (
-    <div className="col-span-3 min-h-[calc(100vh-_48px)]">
+    <div className="min-h-[calc(100vh-_48px)] flex-auto">
       <button
         onClick={() => setTab(1)}
         className="bg-white px-2 py-1 text-black"

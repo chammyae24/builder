@@ -1,6 +1,11 @@
 "use client";
 import { Fragment, ReactElement, createElement } from "react";
-import { ElementData, testData, testData2 } from "../builder/data-type";
+import {
+  ElementData,
+  testData,
+  testData2,
+  testData3
+} from "../builder/data-type";
 import { jsxToString, JSXElement } from "../builder/Components/Preview/helpers";
 import { elementsRender } from "./helpers";
 
@@ -9,6 +14,7 @@ const RenderedElement = () => {
     <>
       {elementsRender(testData)}
       {elementsRender(testData2)}
+      {elementsRender(testData3)}
     </>
   );
 };

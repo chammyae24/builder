@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import * as codeTheme from "react-syntax-highlighter/dist/esm/styles/prism";
 import { ElementData, testData, testData2 } from "../../data-type";
-import { str3 } from "@/app/preview-page/helpers";
+import { jsxString, jsxString2, jsxString3 } from "@/app/preview-page/helpers";
 import { jsxGenerator } from "./helpers";
 
 // ! This code should not be used. You have to find better method.
@@ -13,14 +13,22 @@ import { jsxGenerator } from "./helpers";
 //   "export default function Component() {\n\n return (" +
 //   jsxGenerator(testData).toString().replaceAll(",", "") +
 //   ")}";
-const str = "export default function Component() {\n\n return (" + str3 + ")}";
-const str2 = prettier.format("~~~jsx\n" + str, {
+const componentCodeString =
+  "export default function Component() {\n\n return (<>\n" +
+  jsxString +
+  "\n" +
+  jsxString2 +
+  "\n" +
+  jsxString3 +
+  "\n" +
+  "\n</>)}";
+const renderedString = prettier.format("~~~jsx\n" + componentCodeString, {
   parser: "babel",
   plugins: [parserBabel]
 });
 
 const CodeComponent = () => {
-  console.log(str3);
+  // console.log(str3);
 
   return (
     <div>
@@ -45,7 +53,7 @@ const CodeComponent = () => {
           }
         }}
       >
-        {str2}
+        {renderedString}
       </ReactMarkdown>
     </div>
   );

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ElementData } from "../../data-type";
 
 export const jsxGenerator = (
@@ -44,18 +45,46 @@ export interface JSXElement {
   type: string | Function;
   props: {
     [propName: string]: any;
-    children?: JSXElement | JSXElement[];
+    children?: JSXElement | JSXElement[] | string | number;
   };
 }
 
+// ! DANGER THIS FUNCTION IS NEEDED TO BE SURE
 export const jsxToString = (component: JSXElement): string => {
   const { type, props } = component;
 
+  let str = "";
   if (!type || typeof type === "symbol") {
-    return "";
+    if (Array.isArray(props.children)) {
+      props.children.forEach(child => {
+        if (
+          typeof props.children === "string" ||
+          typeof props.children === "number"
+        ) {
+          str += child.toString();
+        } else {
+          // console.log(child);
+          str += jsxToString(child);
+        }
+      });
+    } else {
+      if (
+        typeof props.children === "string" ||
+        typeof props.children === "number"
+      ) {
+        str += props.children.toString();
+      } else {
+        if (props.children) {
+          // str += props.children.props.children?.toString();
+          str += jsxToString(props.children);
+        }
+      }
+    }
+    return str;
   }
+
   // Start building the string representation of the JSX component
-  let str =
+  str +=
     "<" +
     `${typeof type === "function" ? (type as Function).name : type.toString()}`;
 
@@ -82,18 +111,37 @@ export const jsxToString = (component: JSXElement): string => {
 
   // If the component has children, recursively convert them to strings
   if (props.children) {
-    str += ">";
-
+    str += ">\n";
     if (Array.isArray(props.children)) {
       props.children.forEach(child => {
-        str += jsxToString(child);
+        if (
+          typeof props.children === "string" ||
+          typeof props.children === "number"
+        ) {
+          // ! Important
+          // str += child.toString();
+          // str += `{${JSON.stringify(child)}}`;
+        } else {
+          str += jsxToString(child);
+        }
       });
     } else {
-      str += jsxToString(props.children as JSXElement);
+      if (
+        typeof props.children === "string" ||
+        typeof props.children === "number"
+      ) {
+        // ! Important
+        // str += props.children.toString();
+        // str += `{${JSON.stringify(props.children)}}`;
+      } else {
+        str += jsxToString(props.children);
+      }
     }
 
     // Close the opening tag
-    str += `</${typeof type === "function" ? (type as Function).name : type}>`;
+    str += `</${
+      typeof type === "function" ? (type as Function).name : type.toString()
+    }>`;
   } else {
     // Close the self-closing tag
     str += " />";

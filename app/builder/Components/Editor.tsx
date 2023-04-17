@@ -9,7 +9,7 @@ import Typography from "./Editor/Typography";
 
 const Editor = () => {
   return (
-    <div className="col-span-1 border-l border-gray-500">
+    <div className=" w-[273px] border-l border-gray-500">
       <LayoutComponent />
       <Spacing />
       <Size />
