@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import EditorHeader from "./EditorHeader";
+import SaveEditButton from "./SaveEditButton";
+import EditComponentWraper from "./EditComponentWraper";
 
 const Spacing = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -8,8 +10,8 @@ const Spacing = () => {
     <div>
       <EditorHeader title="Spacing" clicked={clicked} setClicked={setClicked} />
       {clicked && (
-        <div className="border-b border-builder-darker py-2">
-          <div className="relative mx-2 border-[20px] border-builder-box border-y-builder-darker p-1">
+        <EditComponentWraper>
+          <div className="relative col-span-4 border-[20px] border-builder-box border-y-builder-darker p-1">
             <div className="h-14 border-[20px] border-builder-darker border-y-builder-box">
               <div>
                 <span className="absolute -left-4 bottom-[calc(100%+_6px)] text-[8px] text-blue-300">
@@ -43,7 +45,8 @@ const Spacing = () => {
               </div>
             </div>
           </div>
-        </div>
+          <SaveEditButton />
+        </EditComponentWraper>
       )}
     </div>
   );

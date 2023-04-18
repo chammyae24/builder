@@ -3,7 +3,7 @@ import SelectedComponent from "./Navigator/SelectedComponent";
 
 const Navigator = () => {
   return (
-    <div className=" w-[273px] border-r border-gray-500">
+    <div className=" w-[273px] border-r border-gray-500 p-1">
       <SelectedComponent element={testData} />
       <SelectedComponent element={testData2} />
       <SelectedComponent element={testData3} />

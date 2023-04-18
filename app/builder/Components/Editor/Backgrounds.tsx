@@ -16,6 +16,7 @@ import {
   Label,
   ToggleMore
 } from "./EditorComponents";
+import SaveEditButton from "./SaveEditButton";
 
 const Backgrounds = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -101,6 +102,8 @@ const Backgrounds = () => {
               width="1/3"
             />
           </div>
+
+          <SaveEditButton />
         </EditComponentWraper>
       )}
     </div>

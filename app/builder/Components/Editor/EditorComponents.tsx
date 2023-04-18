@@ -81,3 +81,27 @@ export const FileInput = () => (
     </div>
   </>
 );
+
+export type Option = {
+  value: string;
+  label: string;
+};
+type SelectProps = {
+  label: string;
+  span?: string;
+  options: Option[];
+};
+export const Selector = ({ label, span = ":", options = [] }: SelectProps) => {
+  return (
+    <>
+      <Label label={label} span={span.split(":")[0]} />
+      <select className="col-span-3 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs">
+        {options.map(option => (
+          <option key={option.value} value="">
+            {option.value}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+};

@@ -21,8 +21,37 @@ import { BiItalic } from "react-icons/bi";
 import EditorHeader from "./EditorHeader";
 import { Exit, Plus } from "./Icons";
 import EditComponentWraper from "./EditComponentWraper";
-import { IconBox } from "./EditorComponents";
+import {
+  ColorInput,
+  IconBox,
+  Input,
+  Label,
+  Option,
+  Selector
+} from "./EditorComponents";
 import { ToggleMore } from "./EditorComponents";
+import SaveEditButton from "./SaveEditButton";
+
+const fonts: Option[] = [{ label: "Arial", value: "arial" }];
+const weights: Option[] = [
+  { label: "100", value: "100" },
+  { label: "200", value: "200" },
+  { label: "300", value: "300" },
+  { label: "400", value: "400" },
+  { label: "500", value: "500" },
+  { label: "600", value: "600" },
+  { label: "700", value: "700" },
+  { label: "800", value: "800" },
+  { label: "900", value: "900" }
+];
+const breakings: Option[] = [
+  { label: "Normal", value: "normal" },
+  { label: "No Wrap", value: "no-wrap" },
+  { label: "Pre", value: "pre" },
+  { label: "Pre Wrap", value: "pre-wrap" },
+  { label: "Pre Line", value: "pre-line" },
+  { label: "Break Space", value: "break-space" }
+];
 
 const Typography = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -36,50 +65,13 @@ const Typography = () => {
       {clicked && (
         <>
           <EditComponentWraper>
-            <span className="col-span-1 text-xs text-blue-300">Font</span>
-            <select className="col-span-3 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs">
-              <option value="">Arial</option>
-            </select>
+            <Selector label="Font" span="1:3" options={fonts} />
+            <Selector label="Weight" span="1:3" options={weights} />
+            <Input label="Size" span="1:1" placeholder="--" />
+            <Input label="Height" span="1:1" placeholder="--" />
+            <ColorInput />
 
-            <span className="col-span-1 text-xs text-blue-300">Weight</span>
-            <select className="col-span-3 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs">
-              <option value="">100</option>
-              <option value="">200</option>
-              <option value="">300</option>
-              <option value="">400</option>
-              <option value="">500</option>
-              <option value="">600</option>
-              <option value="">700</option>
-              <option value="">800</option>
-              <option value="">900</option>
-            </select>
-
-            <span className="col-span-1 text-xs text-blue-300">Size</span>
-            <input
-              type="text"
-              placeholder="--"
-              className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-            />
-            <span className="col-span-1 text-xs text-blue-300">Height</span>
-            <input
-              type="text"
-              placeholder="--"
-              className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-            />
-
-            <span className="col-span-1 text-xs text-blue-300">Color</span>
-            <div className="relative col-span-3">
-              <input
-                type="color"
-                className="absolute left-0 top-[2px] h-[22px] w-[22px] text-xs outline-none"
-              />
-              <input
-                type="text"
-                className="w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-              />
-            </div>
-
-            <span className="col-span-1 text-xs text-blue-300">Align</span>
+            <Label label="Align" span="1" />
             <div className="col-span-3 flex flex-wrap">
               <IconBox icon={<GrTextAlignLeft />} width="1/4" />
               <IconBox icon={<GrTextAlignRight />} width="1/4" />
@@ -87,8 +79,8 @@ const Typography = () => {
               <IconBox icon={<GrTextAlignFull />} width="1/4" />
             </div>
 
-            <span className="col-span-4 text-xs text-blue-300">Style</span>
-            <span className="col-span-1 text-xs text-blue-300">Italicize</span>
+            <Label label="Style" span="4" />
+            <Label label="Italicize" span="1" />
             <div className="col-span-3 flex flex-wrap">
               <IconBox icon={<Exit />} width="1/2" />
               <IconBox icon={<BiItalic />} width="1/2" />
@@ -106,27 +98,11 @@ const Typography = () => {
           </EditComponentWraper>
           <EditComponentWraper>
             <ToggleMore text="More type options" />
-            <span className="col-span-2 text-xs text-blue-300">
-              Letter Spacing
-            </span>
-            <input
-              type="text"
-              placeholder="--"
-              className="col-span-2 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-            />
 
-            <span className="col-span-2 text-xs text-blue-300">
-              Text Indent
-            </span>
-            <input
-              type="text"
-              placeholder="--"
-              className="col-span-2 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs"
-            />
+            <Input label="Letter Spacing" span="2:2" placeholder="--" />
+            <Input label="Text Indent" span="2:2" placeholder="--" />
 
-            <span className="col-span-1 break-words text-xs text-blue-300">
-              Capitalize
-            </span>
+            <Label label="Capitalize" span="1" />
             <div className="col-span-3 flex flex-wrap">
               <IconBox icon={<Exit />} width="1/4" />
               <IconBox icon={<RxLetterCaseUppercase />} width="1/4" />
@@ -134,23 +110,15 @@ const Typography = () => {
               <IconBox icon={<RxLetterCaseLowercase />} width="1/4" />
             </div>
 
-            <span className="col-span-1 break-words text-xs text-blue-300">
-              Direction
-            </span>
+            <Label label="Direction" span="1" />
             <div className="col-span-3 flex flex-wrap">
               <IconBox icon={<MdFormatTextdirectionRToL />} width="1/2" />
               <IconBox icon={<MdFormatTextdirectionLToR />} width="1/2" />
             </div>
 
-            <span className="col-span-1 text-xs text-blue-300">Breaking</span>
-            <select className="col-span-3 w-full border-2 border-builder-darker bg-builder-box px-1 text-xs">
-              <option value="">Normal</option>
-              <option value="">No Wrap</option>
-              <option value="">Pre</option>
-              <option value="">Pre Wrap</option>
-              <option value="">Pre Line</option>
-              <option value="">Break Space</option>
-            </select>
+            <Selector label="Breaking" options={breakings} span="1:3" />
+
+            <SaveEditButton />
           </EditComponentWraper>
         </>
       )}

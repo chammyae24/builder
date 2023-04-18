@@ -11,6 +11,7 @@ import EditorHeader from "./EditorHeader";
 import EditComponentWraper from "./EditComponentWraper";
 import { IconBox } from "./EditorComponents";
 import { useState } from "react";
+import SaveEditButton from "./SaveEditButton";
 
 const LayoutComponent = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -32,6 +33,7 @@ const LayoutComponent = () => {
             <IconBox icon={<Inline />} />
             <IconBox icon={<None />} />
           </div>
+          <SaveEditButton />
         </EditComponentWraper>
       )}
     </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import EditComponentWraper from "./EditComponentWraper";
 import EditorHeader from "./EditorHeader";
 import { ToggleMore } from "./EditorComponents";
+import SaveEditButton from "./SaveEditButton";
 
 const Effects = () => {
   const [clicked, setClicked] = useState<boolean>(false);
@@ -16,6 +17,8 @@ const Effects = () => {
           <ToggleMore text="Transitions" />
           <ToggleMore text="Filters" />
           <ToggleMore text="Backdrop Filters" />
+
+          <SaveEditButton />
         </EditComponentWraper>
       )}
     </div>

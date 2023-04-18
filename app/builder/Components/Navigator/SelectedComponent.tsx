@@ -52,32 +52,38 @@ const SelectedComponent = ({
   }
 
   return (
-    <>
+    <div className="relative">
       <div
         className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2"
         style={{
           marginLeft: iteratorIndex * 6
         }}
       >
-        <button
-          className=""
-          onClick={() => setClicked(b => !b)}
-          disabled={disabled}
-        >
+        <button onClick={() => setClicked(b => !b)} disabled={disabled}>
           {!disabled ? (
             clicked ? (
-              <AiOutlineMinusSquare />
+              <AiOutlineMinusSquare className="text-blue-300" />
             ) : (
-              <AiOutlinePlusSquare />
+              <AiOutlinePlusSquare className="text-blue-300" />
             )
           ) : (
             <AiOutlineCloseSquare className="text-gray-500" />
           )}
         </button>
-        <span className="text-xs">{element.type}</span>
+        <span className="text-xs font-bold">{element.type}</span>
       </div>
       {content}
-    </>
+      {iteratorIndex > 0 ? (
+        <div
+          className="absolute -top-1 h-[calc(100%+_0.25rem)] border-r border-dotted border-blue-300"
+          style={{
+            left: iteratorIndex * 6 - 3 + "px"
+          }}
+        ></div>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 

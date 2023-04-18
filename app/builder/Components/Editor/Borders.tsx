@@ -6,6 +6,7 @@ import EditComponentWraper from "./EditComponentWraper";
 import EditorHeader from "./EditorHeader";
 import { Border, BorderRadius, Exit } from "./Icons";
 import { ColorInput, IconBox, Input, Label } from "./EditorComponents";
+import SaveEditButton from "./SaveEditButton";
 
 const borderRadius = ["top-left", "top-right", "bottom-left", "bottom-right"];
 const borders = ["top", "right", "bottom", "left"];
@@ -48,6 +49,8 @@ const Borders = () => {
 
           <Input label="Width" placeholder="--" span="1:3" />
           <ColorInput />
+
+          <SaveEditButton />
         </EditComponentWraper>
       )}
     </div>
