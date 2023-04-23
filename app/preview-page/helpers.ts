@@ -1,10 +1,11 @@
+import prettier from "prettier/standalone";
+import parserBabel from "prettier/parser-babel";
 import { Fragment, createElement, ReactElement } from "react";
 import { testData, testData2, testData3 } from "../builder/data-type";
 import { jsxToString } from "../builder/Components/Preview/helpers";
 
 export const elementsRender = (
-  data: ElementData | number | string,
-  ...args: any[]
+  data: ElementData | number | string
 ): ReactElement => {
   if (typeof data === "string" || typeof data === "number") {
     return createElement(Fragment, null, data);
@@ -20,26 +21,26 @@ export const elementsRender = (
         return createElement(
           Fragment,
           { key: data.id },
-          data.children.map(child => elementsRender(child, ...args))
+          data.children.map(child => elementsRender(child))
         );
       }
       return createElement(
         data.type,
         { key: data.id, ...data.props },
-        data.children.map(child => elementsRender(child, ...args))
+        data.children.map(child => elementsRender(child))
       );
     } else {
       if (data.type === null) {
         return createElement(
           Fragment,
           { key: data.id },
-          elementsRender(data.children, ...args)
+          elementsRender(data.children)
         );
       }
       return createElement(
         data.type,
         { key: data.id, ...data.props },
-        elementsRender(data.children, ...args)
+        elementsRender(data.children)
       );
     }
   } else {
@@ -47,15 +48,13 @@ export const elementsRender = (
       return createElement(
         Fragment,
         { key: data.id },
-        elementsRender(data.children ?? "", ...args)
+        elementsRender(data.children ?? "")
       );
     }
     if (data.selfClosedTag) {
       return createElement(data.type, {
         key: data.id,
-        ...data.props,
-        value: args[0],
-        onChange: (e: any) => args[1](e.target.value)
+        ...data.props
       });
     }
     return createElement(
@@ -66,6 +65,21 @@ export const elementsRender = (
   }
 };
 
-export const jsxString = jsxToString(elementsRender(testData));
-export const jsxString2 = jsxToString(elementsRender(testData2));
-export const jsxString3 = jsxToString(elementsRender(testData3));
+const jsxString = jsxToString(elementsRender(testData));
+const jsxString2 = jsxToString(elementsRender(testData2));
+const jsxString3 = jsxToString(elementsRender(testData3));
+
+const componentCodeString =
+  "function Component() {\n\n return (<>\n" +
+  jsxString +
+  "\n" +
+  jsxString2 +
+  "\n" +
+  jsxString3 +
+  "\n" +
+  "\n</>)}";
+
+export const renderedString = prettier.format(componentCodeString, {
+  parser: "babel",
+  plugins: [parserBabel]
+});

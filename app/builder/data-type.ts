@@ -9,8 +9,7 @@ export const testData: ElementData = {
   type: "div",
   selfClosedTag: false,
   props: {
-    style: { ...baseStyle, outlineColor: "red", backgroundColor: "#E4A010" },
-    hey: 1 + 1
+    style: { ...baseStyle, outlineColor: "red", backgroundColor: "#E4A010" }
   },
   children: {
     id: "2",

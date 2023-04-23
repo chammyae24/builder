@@ -19,14 +19,14 @@ const Preview = () => {
         2
       </button>
 
-      {tab === 1 && (
+      <div className="h-[calc(100vh-_80px)] overflow-y-auto">
         <iframe
           src="/preview-page"
-          className="h-[calc(100%-_32px)] w-full"
+          className={`h-full w-full ${tab !== 1 && "hidden"}`}
           frameBorder="0"
         />
-      )}
-      {tab === 2 && <CodeComponent />}
+        <CodeComponent show={tab === 2} />
+      </div>
     </div>
   );
 };

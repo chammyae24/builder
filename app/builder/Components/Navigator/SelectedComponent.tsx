@@ -4,18 +4,24 @@ import {
   AiOutlinePlusSquare,
   AiOutlineCloseSquare
 } from "react-icons/ai";
-import { ReactElement, useState } from "react";
+import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 
 type Props = {
   element: ElementData;
   iteratorIndex?: number;
+  selected: string;
+  setSelected: Dispatch<SetStateAction<string>>;
 };
 
 const SelectedComponent = ({
   element,
-  iteratorIndex = 0
+  iteratorIndex = 0,
+  selected,
+  setSelected
 }: Props): ReactElement => {
-  const [clicked, setClicked] = useState<boolean>(false);
+  const [clicked, setClicked] = useState(false);
+
+  // console.log(element);
 
   let disabled =
     element.children === null ||
@@ -38,6 +44,8 @@ const SelectedComponent = ({
           key={child.id}
           iteratorIndex={iteratorIndex + 1}
           element={child}
+          selected={selected}
+          setSelected={setSelected}
         />
       ));
     } else {
@@ -45,6 +53,8 @@ const SelectedComponent = ({
         <SelectedComponent
           iteratorIndex={iteratorIndex + 1}
           element={element.children}
+          selected={selected}
+          setSelected={setSelected}
         />
       );
     }
@@ -53,7 +63,11 @@ const SelectedComponent = ({
   return (
     <div className="relative">
       <div
-        className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2 text-white"
+        className={`mb-1 flex items-center gap-2 border ${
+          selected === element.id
+            ? "border-builder-box bg-builder-darker"
+            : "border-builder-darker bg-builder-box"
+        } p-2 text-white`}
         style={{
           marginLeft: iteratorIndex * 6
         }}
@@ -69,7 +83,12 @@ const SelectedComponent = ({
             <AiOutlineCloseSquare className="text-gray-500" />
           )}
         </button>
-        <span className="text-xs font-bold">{element.type}</span>
+        <span
+          className="flex-grow cursor-pointer text-xs font-bold"
+          onClick={() => setSelected(element.id)}
+        >
+          {element.type}
+        </span>
       </div>
       {content}
       {iteratorIndex > 0 ? (
