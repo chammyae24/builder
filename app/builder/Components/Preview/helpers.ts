@@ -1,6 +1,3 @@
-import { Fragment } from "react";
-import { ElementData } from "../../data-type";
-
 export const jsxGenerator = (
   data: ElementData | number | string
 ): (string | number)[] => {
@@ -41,14 +38,6 @@ export const jsxGenerator = (
   }
 };
 
-export interface JSXElement {
-  type: string | Function;
-  props: {
-    [propName: string]: any;
-    children?: JSXElement | JSXElement[] | string | number;
-  };
-}
-
 // ! DANGER THIS FUNCTION IS NEEDED TO BE SURE
 export const jsxToString = (component: JSXElement): string => {
   const { type, props } = component;
@@ -63,7 +52,6 @@ export const jsxToString = (component: JSXElement): string => {
         ) {
           str += child.toString();
         } else {
-          // console.log(child);
           str += jsxToString(child);
         }
       });
@@ -75,7 +63,6 @@ export const jsxToString = (component: JSXElement): string => {
         str += props.children.toString();
       } else {
         if (props.children) {
-          // str += props.children.props.children?.toString();
           str += jsxToString(props.children);
         }
       }
@@ -98,6 +85,8 @@ export const jsxToString = (component: JSXElement): string => {
       } else {
         // If the prop value is a function, convert it to a string
         if (typeof propValue === "function") {
+          console.log("function");
+
           propValue = propValue.toString();
         }
         if (typeof propValue === "object") {

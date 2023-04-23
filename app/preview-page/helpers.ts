@@ -1,20 +1,10 @@
 import { Fragment, createElement, ReactElement } from "react";
-import {
-  ElementData,
-  testData,
-  testData2,
-  testData3
-} from "../builder/data-type";
+import { testData, testData2, testData3 } from "../builder/data-type";
 import { jsxToString } from "../builder/Components/Preview/helpers";
 
-const style = {
-  padding: "4px",
-  margin: "4px",
-  outline: "1px dashed green"
-};
-
 export const elementsRender = (
-  data: ElementData | number | string
+  data: ElementData | number | string,
+  ...args: any[]
 ): ReactElement => {
   if (typeof data === "string" || typeof data === "number") {
     return createElement(Fragment, null, data);
@@ -30,26 +20,26 @@ export const elementsRender = (
         return createElement(
           Fragment,
           { key: data.id },
-          data.children.map(child => elementsRender(child))
+          data.children.map(child => elementsRender(child, ...args))
         );
       }
       return createElement(
         data.type,
-        { style, key: data.id, disabled: true, hey: "hello", hi: [1, 2, 3] },
-        data.children.map(child => elementsRender(child))
+        { key: data.id, ...data.props },
+        data.children.map(child => elementsRender(child, ...args))
       );
     } else {
       if (data.type === null) {
         return createElement(
           Fragment,
           { key: data.id },
-          elementsRender(data.children)
+          elementsRender(data.children, ...args)
         );
       }
       return createElement(
         data.type,
-        { style, key: data.id },
-        elementsRender(data.children)
+        { key: data.id, ...data.props },
+        elementsRender(data.children, ...args)
       );
     }
   } else {
@@ -57,12 +47,20 @@ export const elementsRender = (
       return createElement(
         Fragment,
         { key: data.id },
-        elementsRender(data.children ?? "")
+        elementsRender(data.children ?? "", ...args)
       );
+    }
+    if (data.selfClosedTag) {
+      return createElement(data.type, {
+        key: data.id,
+        ...data.props,
+        value: args[0],
+        onChange: (e: any) => args[1](e.target.value)
+      });
     }
     return createElement(
       data.type,
-      { style, key: data.id },
+      { key: data.id, ...data.props },
       data.children ?? ""
     );
   }

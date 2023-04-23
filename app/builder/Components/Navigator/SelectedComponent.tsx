@@ -4,7 +4,6 @@ import {
   AiOutlinePlusSquare,
   AiOutlineCloseSquare
 } from "react-icons/ai";
-import { ElementData } from "../../data-type";
 import { ReactElement, useState } from "react";
 
 type Props = {
@@ -54,7 +53,7 @@ const SelectedComponent = ({
   return (
     <div className="relative">
       <div
-        className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2"
+        className="mb-1 flex items-center gap-2 border border-builder-darker bg-builder-box p-2 text-white"
         style={{
           marginLeft: iteratorIndex * 6
         }}

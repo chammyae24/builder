@@ -22,10 +22,9 @@ const Preview = () => {
       {tab === 1 && (
         <iframe
           src="/preview-page"
+          className="h-[calc(100%-_32px)] w-full"
           frameBorder="0"
-          width="100%"
-          height="100%"
-        ></iframe>
+        />
       )}
       {tab === 2 && <CodeComponent />}
     </div>

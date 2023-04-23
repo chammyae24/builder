@@ -4,7 +4,7 @@ type Props = {};
 
 const PreviewPage = () => {
   return (
-    <div>
+    <div className="h-full bg-builder-darker">
       <RenderedElement />
     </div>
   );
